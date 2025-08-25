@@ -8,7 +8,7 @@ namespace BankDevsu.Domain.Entities
         public string Name { get; set; } = string.Empty;
         public Gender Gender { get; set; } = Gender.Unknown;
         public int Age { get; set; }
-        public string Identification { get; set; } = string.Empty; // unique constraint
+        public string Identification { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
     }

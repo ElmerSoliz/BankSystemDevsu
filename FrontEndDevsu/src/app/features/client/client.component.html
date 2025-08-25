@@ -1,0 +1,41 @@
+<div class="clients-container">
+  <h2>Clientes</h2>
+
+  <button *ngIf="!showForm" (click)="create()">Nuevo Cliente</button>
+
+  <app-client-form 
+    *ngIf="showForm"
+    [client]="selectedClient"
+    (saved)="formSaved()">
+  </app-client-form>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <table *ngIf="!showForm && clients.length > 0">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Telefono</th>
+        <th>Identificador</th>
+        <th>Estado</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of clients">
+        <td>{{ c.name }}</td>
+        <td>{{ c.address }}</td>
+        <td>{{ c.phone }}</td>
+        <td>{{ c.id }}</td>
+        <td>{{ c.isActive ? 'Sí' : 'No' }}</td>
+        <td>
+          <button (click)="edit(c)">Editar</button>
+          <button (click)="deleteClient(c.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

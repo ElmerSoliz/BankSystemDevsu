@@ -1,0 +1,49 @@
+<div class="client-container">
+  <h2>{{ client ? 'Editar Cliente' : 'Nuevo Cliente' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <label>
+      Nombre:
+      <input formControlName="name" />
+    </label>
+
+    <label>
+      Genero:
+      <select formControlName="gender">
+        <option *ngFor="let g of genders" [value]="g.value">{{ g.label }}</option>
+      </select>
+    </label>
+
+    <label>
+      Edad:
+      <input type="number" formControlName="age" />
+    </label>
+
+    <label>
+      Identificacion:
+      <input formControlName="identification" />
+    </label>
+
+    <label>
+      Direccion:
+      <input formControlName="address" />
+    </label>
+
+    <label>
+      Celular:
+      <input formControlName="phone" />
+    </label>
+
+    <label *ngIf="!client">
+      Contraseña:
+      <input type="password" formControlName="password" />
+    </label>
+
+    <label *ngIf="client">
+      Activo:
+      <input type="checkbox" formControlName="isActive" />
+    </label>
+
+    <button type="submit">{{ client ? 'Actualizar' : 'Crear' }}</button>
+  </form>
+</div>

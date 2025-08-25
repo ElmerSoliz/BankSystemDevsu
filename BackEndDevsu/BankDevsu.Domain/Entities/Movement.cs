@@ -7,7 +7,7 @@ namespace BankDevsu.Domain.Entities
     {
         public DateTime DateUtc { get; set; } = DateTime.UtcNow;
         public MovementType MovementType { get; set; }
-        public decimal Amount { get; set; } // credit positive, debit negative
+        public decimal Amount { get; set; }
         public decimal BalanceAfterTransaction { get; set; }
 
         public Guid AccountId { get; set; }
