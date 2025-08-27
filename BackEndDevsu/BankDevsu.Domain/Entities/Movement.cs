@@ -1,5 +1,6 @@
 ﻿using BankDevsu.Domain.Common;
 using BankDevsu.Domain.Enums;
+using System.Text.Json.Serialization;
 
 namespace BankDevsu.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace BankDevsu.Domain.Entities
         public decimal BalanceAfterTransaction { get; set; }
 
         public Guid AccountId { get; set; }
+        [JsonIgnore]
         public Account? Account { get; set; }
     }
 }

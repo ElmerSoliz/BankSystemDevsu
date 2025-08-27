@@ -14,6 +14,9 @@ const routes: Routes = [
       { path: 'clients', 
         loadChildren: () => import('./features/client/client.module').then(m => m.ClientModule) 
       },
+      { path: 'movements', 
+        loadChildren: () => import('./features/movement/movement.module').then(m => m.MovementModule) 
+      }
     ]
   }
 ];

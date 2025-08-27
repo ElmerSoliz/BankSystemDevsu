@@ -13,18 +13,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutComponent } from './components/layout/layout.component';
-import { ClientComponent } from './features/client/client.component';
-import { MovementComponent } from './features/movement/movement.component';
-import { AccountFormComponent } from './features/account/account-form/account-form.component';
 import { AccountModule } from './features/account/account.module';
+import { ClientModule } from './features/client/client.module';
+import { MovementModule } from './features/movement/movement.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidebarComponent,
-    LayoutComponent,
-    MovementComponent
+    LayoutComponent    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,9 @@ import { AccountModule } from './features/account/account.module';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    AccountModule
+    AccountModule,
+    ClientModule,
+    MovementModule
   ],
   providers: [],
   bootstrap: [AppComponent]

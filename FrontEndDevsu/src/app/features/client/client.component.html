@@ -18,7 +18,7 @@
         <th>Nombre</th>
         <th>Direccion</th>
         <th>Telefono</th>
-        <th>Identificador</th>
+        <th>Contraseña</th>
         <th>Estado</th>
         <th>Actions</th>
       </tr>
@@ -28,8 +28,8 @@
         <td>{{ c.name }}</td>
         <td>{{ c.address }}</td>
         <td>{{ c.phone }}</td>
-        <td>{{ c.id }}</td>
-        <td>{{ c.isActive ? 'Sí' : 'No' }}</td>
+        <td>{{ c.passwordHash }}</td>
+        <td>{{ c.isActive ? 'Yes' : 'No' }}</td>
         <td>
           <button (click)="edit(c)">Editar</button>
           <button (click)="deleteClient(c.id!)">Eliminar</button>

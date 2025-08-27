@@ -15,8 +15,16 @@ namespace BankDevsu.Api.Controllers
         public AccountsController(BankingDbContext ctx) => _ctx = ctx;
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAll() =>
-            Ok(await _ctx.Accounts.AsNoTracking().ToListAsync());
+        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
+        {
+            var accounts = await _ctx.Accounts
+                .Include(a => a.Client)
+                .Include(a => a.Movements)
+                .ToListAsync();
+
+            return Ok(accounts);
+        }
+
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<Account>> GetById(Guid id)

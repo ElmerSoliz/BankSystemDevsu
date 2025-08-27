@@ -20,8 +20,10 @@
     </label>
 
     <label>
-      Cliente (ID):
-      <input formControlName="clientId" />
+      Cliente:
+      <select formControlName="clientId">
+        <option *ngFor="let item of clients" [value]="item.id">{{ item.name }}</option>
+      </select>
     </label>
 
     <label *ngIf="account">

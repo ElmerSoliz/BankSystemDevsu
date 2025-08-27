@@ -21,7 +21,7 @@ var config = builder.Configuration;
 
 var conn = Environment.GetEnvironmentVariable("DB_CONN")
            ?? config.GetConnectionString("Default")
-           ?? "Server=sqlserver,1433;Database=BankingDb;User Id=sa;Password=BankDevsu123;TrustServerCertificate=True;";
+           ?? "Server=127.0.0.1,1433;Database=BankingDb;User Id=sa;Password=BankDevsu123;TrustServerCertificate=True;";
 
 services.AddDbContext<BankingDbContext>(opt => opt.UseSqlServer(conn));
 
@@ -35,6 +35,17 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ClientCreateValidator>();
+
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 services.AddSwaggerGen(c =>
 {
@@ -93,6 +104,9 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularDev");
+
 app.MapControllers();
 
 app.Run();

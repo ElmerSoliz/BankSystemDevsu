@@ -24,11 +24,13 @@ namespace BankDevsu.Infrastructure.Repositories
 
         public async Task<decimal> SumDailyDebitsAsync(Guid accountId, DateOnly day, CancellationToken ct = default)
         {
-            var from = day.ToDateTime(TimeOnly.MinValue).ToUniversalTime();
-            var to = day.ToDateTime(TimeOnly.MaxValue).ToUniversalTime();
+            var from = day.ToDateTime(TimeOnly.MinValue);
+            var to = day.ToDateTime(TimeOnly.MaxValue);
+
             var sum = await _ctx.Movements
                 .Where(m => m.AccountId == accountId && m.DateUtc >= from && m.DateUtc <= to && m.Amount < 0)
                 .SumAsync(m => -m.Amount, ct);
+
             return sum;
         }
 

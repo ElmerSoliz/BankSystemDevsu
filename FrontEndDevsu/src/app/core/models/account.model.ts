@@ -10,6 +10,6 @@ export interface Account extends BaseEntity {
   currentBalance: number;
   isActive: boolean;
   clientId: string;
-  client?: Client;
+  client: Client;
   movements?: Movement[];
 }

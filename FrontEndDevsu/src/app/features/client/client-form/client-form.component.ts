@@ -52,9 +52,45 @@ export class ClientFormComponent implements OnInit {
 
     if (this.client) {
       payload.isActive = this.form.value.isActive;
-      this.clientService.update(this.client.id!, payload).subscribe(() => this.saved.emit());
+      this.clientService.update(this.client.id!, payload).subscribe({ 
+        next: (created) => {
+          this.saved.emit()
+        },
+        error: (err) => {
+          console.error('Error al Editar', err);
+          if (err.error && err.error.errors) {
+            let messages: string[] = [];
+            for (const key in err.error.errors) {
+              if (err.error.errors.hasOwnProperty(key)) {
+                messages = messages.concat(err.error.errors[key]);
+              }
+            }
+            alert(messages.join('\n'));
+          } else {
+            alert('Error inesperado al Actualizar Cliente');
+          }
+        }
+      });
     } else {
-      this.clientService.create(payload).subscribe(() => this.saved.emit());
+      this.clientService.create(payload).subscribe({
+        next: (created) => {
+          this.saved.emit();
+        },
+        error: (err) => {
+          console.error('Error creando Cliente', err);
+          if (err.error && err.error.errors) {
+            let messages: string[] = [];
+            for (const key in err.error.errors) {
+              if (err.error.errors.hasOwnProperty(key)) {
+                messages = messages.concat(err.error.errors[key]);
+              }
+            }
+            alert(messages.join('\n'));
+          } else {
+            alert('Error inesperado al crear cliente');
+          }
+        }
+      });
     }
   }
 }

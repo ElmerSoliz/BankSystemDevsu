@@ -5,8 +5,7 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
-//   private baseUrl = 'http://localhost:32768/clients';
-  private baseUrl = 'http://localhost:8080/clients';
+  private baseUrl = 'http://localhost:32768/clients';
 
   constructor(private http: HttpClient) {}
 

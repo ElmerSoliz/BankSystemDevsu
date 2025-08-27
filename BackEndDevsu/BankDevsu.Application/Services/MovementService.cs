@@ -28,7 +28,6 @@ namespace BankDevsu.Application.Services
         {
             var account = await _accounts.GetByIdAsync(accountId, ct) ?? throw new NotFoundException("Account not found");
             if (!account.IsActive) throw new ValidationException("Account is inactive");
-
             if (type == MovementType.Credit && amount <= 0) throw new ValidationException("Credit amount must be positive");
             if (type == MovementType.Debit && amount >= 0) throw new ValidationException("Debit amount must be negative");
 
@@ -39,6 +38,7 @@ namespace BankDevsu.Application.Services
             {
                 var today = DateOnly.FromDateTime(now.Date);
                 var taken = await _movements.SumDailyDebitsAsync(accountId, today, ct);
+
                 if (taken + absAmount > DAILY_WITHDRAWAL_LIMIT)
                     throw new DailyLimitExceededException("Cupo diario Excedido");
 

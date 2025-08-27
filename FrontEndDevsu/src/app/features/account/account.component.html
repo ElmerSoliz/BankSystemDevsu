@@ -1,41 +1,59 @@
 <div class="accounts-container">
   <h2>Cuentas</h2>
 
+  <!-- Formulario de cuenta -->
   <app-account-form 
     *ngIf="selectedAccount || showForm" 
     [account]="selectedAccount" 
-    (save)="selectedAccount ? updateAccount($event) : createAccount($event)">
+    (save)="formSaved()">
   </app-account-form>
   
   <button *ngIf="!showForm" (click)="toggleForm()">Nueva Cuenta</button>
 
-  <div *ngIf="error">{{ error }}</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <table *ngIf="!loading && accounts.length > 0">
+  <!-- Tabla de cuentas -->
+  <table *ngIf="!showForm && accounts.length > 0">
     <thead>
       <tr>
         <th>Numero de Cuenta</th>
         <th>Tipo</th>
         <th>Balance Inicial</th>
-        <th>Balance Actual</th>
+        <th>Cliente</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let acc of accounts">
-        <td>{{ acc.accountNumber }}</td>
-        <td>{{ acc.accountType }}</td>
-        <td>{{ acc.initialBalance }}</td>
-        <td>{{ acc.currentBalance }}</td>
-        <td>{{ acc.isActive ? 'Yes' : 'No' }}</td>
-        <td>
-          <button mat-button color="accent" (click)="edit(acc)">Edit</button>
-          <button mat-button color="warn" (click)="deleteAccount(acc.id)">Delete</button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let acc of accounts">
+        <!-- Fila de la cuenta -->
+        <tr>
+          <td>{{ acc.accountNumber }}</td>
+          <td>{{ accountTypeMap[acc.accountType] }}</td>
+          <td>{{ acc.initialBalance }}</td>
+          <td>{{ acc.client.name }}</td>
+          <td>{{ acc.isActive ? 'Activo' : 'Inactivo' }}</td>
+          <td>
+            <button (click)="edit(acc)">Editar</button>
+            <button (click)="deleteAccount(acc.id)">Eliminar</button>
+            <button (click)="toggleMovements(acc)">
+              {{ movementsByAccount[acc.id] ? 'Ocultar Movimientos' : 'Ver Movimientos' }}
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="movementsByAccount[acc.id]">
+          <td colspan="6">
+            <div class="movements-container">
+              <app-movement
+                [accountId]="acc.id">
+              </app-movement>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 
-  <p *ngIf="!loading && accounts.length === 0">No accounts found.</p>
+  <p *ngIf="!loading && accounts.length === 0">No se encontraron cuentas.</p>
 </div>

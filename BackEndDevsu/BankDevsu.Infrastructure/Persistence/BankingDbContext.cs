@@ -27,7 +27,10 @@ namespace BankDevsu.Infrastructure.Persistence
                 e.HasIndex(a => a.AccountNumber).IsUnique();
                 e.Property(a => a.InitialBalance).HasColumnType("decimal(18,2)");
                 e.Property(a => a.CurrentBalance).HasColumnType("decimal(18,2)");
-                e.HasOne(a => a.Client).WithMany(c => c.Accounts).HasForeignKey(a => a.ClientId).OnDelete(DeleteBehavior.Cascade);
+                e.HasOne(a => a.Client)
+                 .WithMany()
+                 .HasForeignKey(a => a.ClientId)
+                 .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Movement>(e =>

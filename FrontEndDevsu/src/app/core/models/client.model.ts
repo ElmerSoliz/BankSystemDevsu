@@ -5,5 +5,4 @@ export interface Client extends Person {
   passwordHash?: string;
   password?: string;
   isActive: boolean;
-  accounts?: Account[];
 }
